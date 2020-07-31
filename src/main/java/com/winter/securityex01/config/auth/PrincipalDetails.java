@@ -1,8 +1,12 @@
 package com.winter.securityex01.config.auth;
 
+import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.winter.securityex01.model.User;
@@ -52,7 +56,10 @@ public class PrincipalDetails implements UserDetails {
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() { // 권한 확인
-		return null;
+		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+		authorities.add(new SimpleGrantedAuthority(user.getRole()));
+		System.out.println("PrincipalDetail 확인 : " +authorities);
+		return authorities; // 여기 유저 정보 전부 다 리턴 
 	}
 
 }
