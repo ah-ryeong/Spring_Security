@@ -1,6 +1,10 @@
 package com.winter.securityex01.controller;
 
+import org.hibernate.service.spi.Manageable;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -32,9 +36,18 @@ public class IndexController {
 		return "user 페이지 입니다.";
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@GetMapping("/admin")
 	public @ResponseBody String admin() {
 		return "admin 페이지 입니다.";
+	}
+	
+//	@PostAuthorize("hasRole('ROLE_MANAGER')")
+//	@PreAuthorize("hasRole('ROLE_MANAGER')")
+	@Secured("ROLE_MANAGER")
+	@GetMapping("/manager")
+	public @ResponseBody String manager() {
+		return "manager 페이지입니다.";
 	}
 	
 	@GetMapping("/login")
